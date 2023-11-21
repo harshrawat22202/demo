@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="pane" prefHeight="300.0" prefWidth="500.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.Controller">
+   <ImageView fitHeight="300.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@login.png" />
+      </image>
+   </ImageView>
+   <Button layoutX="340.0" layoutY="50.0" mnemonicParsing="false" onAction="#switchToScene2" opacity="0.07" prefHeight="54.0" prefWidth="142.0" />
+   <Button layoutX="366.0" layoutY="239.0" mnemonicParsing="false" onAction="#exit" prefHeight="44.0" prefWidth="91.0" style="-fx-background-color: black; -fx-border-color: white;" text="Exit" textFill="#fafafa">
+      <font>
+         <Font size="20.0" />
+      </font></Button>
+   <Button layoutX="350.0" layoutY="105.0" mnemonicParsing="false" onAction="#switchToScene3" opacity="0.0" prefHeight="54.0" prefWidth="142.0" />
+</AnchorPane>

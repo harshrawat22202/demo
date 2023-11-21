@@ -15,7 +15,7 @@ public class HelloApplication extends Application {
         try {
             Parent root = new FXMLLoader(getClass().getResource("scene1.fxml")).load();
             Scene scene = new Scene(root);
-            stage.getIcons().add(new Image("C:\\IIITD\\3rd sem\\AP\\demo\\demo\\src\\main\\java\\com\\example\\demo\\logo.png"));
+            stage.getIcons().add(new Image());
             stage.setTitle("Stick Hero");
             stage.setResizable(false);
             stage.setScene(scene);
