@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -40,8 +41,6 @@ public class Controller {
     Label passwd1;
     @FXML
     Button log;
-    @FXML
-    Rectangle stick;
 
     public void displayLog() throws IOException {
 //        help.setText("How to play");
@@ -89,14 +88,6 @@ public class Controller {
 
     public void switchToScene3(ActionEvent event) throws IOException {
         Parent root = new FXMLLoader(getClass().getResource("scene3.fxml")).load(); // Use scene2.fxml
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public void switchToScene5(ActionEvent event) throws IOException {
-        Parent root = new FXMLLoader(getClass().getResource("scene5.fxml")).load(); // Use scene2.fxml
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -182,7 +173,6 @@ public class Controller {
     }
 
     public void exit2(ActionEvent event) {
-
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Exiting");
         alert.setHeaderText("You are about to exit");
@@ -194,24 +184,13 @@ public class Controller {
         }
     }
 
-    public void inc() {
-        time = new Timeline(new KeyFrame(Duration.millis(25), event -> incStick()));
-        time.setCycleCount(Timeline.INDEFINITE);
-        time.play();
+    public void showGameWindow(ActionEvent actionEvent) throws IOException {
+        Stage gameWindow = new Stage();
+        Parent root = new FXMLLoader(getClass().getResource("gameWindow.fxml")).load();
+        Scene s = new Scene(root);
+        gameWindow.setScene(s);
+        gameWindow.initModality(Modality.APPLICATION_MODAL);
+        gameWindow.initOwner(stage);
+        gameWindow.show();
     }
-
-    public void incStick() {
-        stick.setHeight(stick.getHeight() + 5);
-    }
-
-    public void stop() {
-        if (time != null) {
-            time.stop();
-            double h = stick.getHeight();
-            double w = stick.getWidth();
-            stick.setHeight(w);
-            stick.setWidth(h);
-        }
-    }
-
 }
