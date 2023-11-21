@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class HelloApplication extends Application {
     @Override
@@ -15,7 +16,7 @@ public class HelloApplication extends Application {
         try {
             Parent root = new FXMLLoader(getClass().getResource("scene1.fxml")).load();
             Scene scene = new Scene(root);
-            stage.getIcons().add(new Image());
+            stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("logo.png"))));
             stage.setTitle("Stick Hero");
             stage.setResizable(false);
             stage.setScene(scene);

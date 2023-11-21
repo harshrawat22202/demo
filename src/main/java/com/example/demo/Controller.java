@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+
 public class Controller {
     private Stage stage;
     private Timeline time;
@@ -47,18 +48,11 @@ public class Controller {
         log.setOpacity(0.9);
 
     }
+
     public void removeLog() throws IOException {
 //        help.setText("How to play");
         log.setOpacity(0);
-
     }
-
-
-
-
-
-
-
 
 
     public void switchToScene1(ActionEvent event) throws IOException {
@@ -83,7 +77,6 @@ public class Controller {
         }
 
 
-
     }
 
     public void switchToScene2(ActionEvent event) throws IOException {
@@ -93,6 +86,7 @@ public class Controller {
         stage.setScene(scene);
         stage.show();
     }
+
     public void switchToScene3(ActionEvent event) throws IOException {
         Parent root = new FXMLLoader(getClass().getResource("scene3.fxml")).load(); // Use scene2.fxml
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -108,39 +102,37 @@ public class Controller {
         stage.setScene(scene);
         stage.show();
     }
+
     public void displayName() throws IOException {
 //        help.setText("How to play");
         name1.setOpacity(0.25);
 
     }
+
     public void removeName() throws IOException {
 //        help.setText("How to play");
         name1.setOpacity(0);
 
     }
+
     public void displayPass() throws IOException {
 //        help.setText("How to play");
         passwd1.setOpacity(0.25);
 
     }
+
     public void removePass() throws IOException {
 //        help.setText("How to play");
         passwd1.setOpacity(0);
 
     }
 
-
-
     public void switchToScene4(ActionEvent event) throws IOException {
-        if (name.getText().isEmpty()){
+        if (name.getText().isEmpty()) {
             displayName();
         } else if (passwd.getText().isEmpty()) {
             displayPass();
-
-
-
-
-        }else {
+        } else {
             removeName();
             removePass();
             Parent root = new FXMLLoader(getClass().getResource("scene4.fxml")).load(); // Use scene2.fxml
@@ -151,16 +143,13 @@ public class Controller {
             stage.show();
 
         }
-
-
-
     }
 
     public void displayHelp() throws IOException {
 //        help.setText("How to play");
         help.setOpacity(0.25);
-
     }
+
     public void removeHelp() throws IOException {
 //        help.setText("How to play");
         help.setOpacity(0);
@@ -172,6 +161,7 @@ public class Controller {
         shop.setOpacity(0.25);
 
     }
+
     public void removeShop() throws IOException {
 //        help.setText("How to play");
         shop.setOpacity(0);
@@ -190,6 +180,7 @@ public class Controller {
             stage.close();
         }
     }
+
     public void exit2(ActionEvent event) {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -202,28 +193,25 @@ public class Controller {
             stage.close();
         }
     }
-    public void inc(){
+
+    public void inc() {
         time = new Timeline(new KeyFrame(Duration.millis(25), event -> incStick()));
         time.setCycleCount(Timeline.INDEFINITE);
         time.play();
     }
-    public void incStick(){
-        stick.setHeight(stick.getHeight()+5);
 
+    public void incStick() {
+        stick.setHeight(stick.getHeight() + 5);
     }
-    public void stop(){
+
+    public void stop() {
         if (time != null) {
             time.stop();
-
             double h = stick.getHeight();
             double w = stick.getWidth();
-
             stick.setHeight(w);
             stick.setWidth(h);
-
-
         }
-
     }
 
 }

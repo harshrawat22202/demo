@@ -20,7 +20,7 @@
    <Label fx:id="shop" layoutX="263.0" layoutY="641.0" opacity="0.0" prefHeight="21.0" prefWidth="40.0" style="-fx-background-color: black; -fx-border-color: white;" text="  Shop" textFill="#f4f4f4" />
    <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="283.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
       <image>
-         <Image url="C:\IIITD\3rd sem\AP\demo\demo\src\main\java\com\example\demo\logo.png" />
+         <Image url="@logo.png" />
       </image></ImageView>
    <Button layoutY="3.0" mnemonicParsing="false" onAction="#removeLog" opacity="0.0" prefHeight="675.0" prefWidth="322.0" text="Button" />
    <Circle fill="DODGERBLUE" layoutX="40.0" layoutY="571.0" onMouseEntered="#displayHelp" onMouseExited="#removeHelp" opacity="0.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
