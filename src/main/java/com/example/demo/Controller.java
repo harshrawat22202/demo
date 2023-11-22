@@ -179,7 +179,6 @@ public class Controller {
         alert.setContentText("Confirm please");
         if (alert.showAndWait().get() == ButtonType.OK) {
             stage = (Stage) main.getScene().getWindow();
-//            System.out.println("logged out");
             stage.close();
         }
     }
@@ -188,6 +187,7 @@ public class Controller {
         Stage gameWindow = new Stage();
         Parent root = new FXMLLoader(getClass().getResource("gameWindow.fxml")).load();
         Scene s = new Scene(root);
+        s.getRoot().requestFocus();
         gameWindow.setScene(s);
         gameWindow.initModality(Modality.APPLICATION_MODAL);
         gameWindow.initOwner(stage);

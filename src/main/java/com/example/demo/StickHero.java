@@ -6,16 +6,12 @@ import java.util.Objects;
 
 public class StickHero {
     private static StickHero s = null;//singleton design pattern
-    private final Image i = new Image(Objects.requireNonNull(getClass().getResourceAsStream("hero.png")));
+    private final Image photo=new Image(Objects.requireNonNull(getClass().getResourceAsStream("hero.png")));
 
     public static StickHero getStickHero() {
         if (s == null)
             s = new StickHero();
         return s;
-    }
-
-    public Image getImage() {
-        return this.i;
     }
 
     public static void moveForward() {
@@ -40,5 +36,9 @@ public class StickHero {
 
     public static void restart() {
 
+    }
+
+    public Image getPhoto() {
+        return photo;
     }
 }
