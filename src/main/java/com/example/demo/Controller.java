@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,11 +9,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.transform.Rotate;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -183,14 +179,15 @@ public class Controller {
         }
     }
 
-    public void showGameWindow(ActionEvent actionEvent) throws IOException {
-        Stage gameWindow = new Stage();
+    public void showGameWindow() throws IOException {
+        /*Stage gameWindow = new Stage();
         Parent root = new FXMLLoader(getClass().getResource("gameWindow.fxml")).load();
         Scene s = new Scene(root);
-        s.getRoot().requestFocus();
+        s.getRoot();
         gameWindow.setScene(s);
         gameWindow.initModality(Modality.APPLICATION_MODAL);
         gameWindow.initOwner(stage);
-        gameWindow.show();
+        gameWindow.show();*/
+        GameWindow.showGameWindow(stage);
     }
 }
