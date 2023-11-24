@@ -3,6 +3,7 @@ package com.example.demo;
 import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point3D;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -38,7 +39,7 @@ public class GameWindowController implements Initializable {
     private Rectangle rect1;
     @FXML
     private Rectangle rect2;
-    private int check=0;
+    private int check = 0;
 
 
     @Override
@@ -53,7 +54,7 @@ public class GameWindowController implements Initializable {
         platform();
         playGame();
         Random r = new Random();
-        rect2.setWidth(r.nextDouble(50-10+1)+10);
+        rect2.setWidth(r.nextDouble(50 - 10 + 1) + 10);
     }
 
     public void platform() {
@@ -67,21 +68,17 @@ public class GameWindowController implements Initializable {
 //        pane.getChildren().addAll(firstRectangle);
 
 
-
     }
-//
+
+    //
     public void moveForward(double newX) throws InterruptedException {
         TranslateTransition transition = new TranslateTransition();
         transition.setNode(hero);
         transition.setDuration(Duration.millis((newX - Xhero) / speed_Hero));
         transition.setByX(newX);
         transition.play();
-
         double v = (newX - Xhero) / speed_Hero;
-//        Thread.sleep(100);
         Xhero = newX;
-
-
     }
 //
 //    public void extendStick(Line stick) {
@@ -101,62 +98,69 @@ public class GameWindowController implements Initializable {
 //    }
 
 
-//
-    public void reset(){
+    //
+    public void reset() throws InterruptedException {
         Random r = new Random();
         rect1.setWidth(rect2.getWidth());
         System.out.println(rect2.getWidth());
         System.out.println(rect1.getWidth());
-        double x  = r.nextDouble(300-100+1)+100;
+        double x = r.nextDouble(300 - 100 + 1) + 100;
         System.out.println(x);
-        rect2.setWidth(r.nextDouble(100-10+1)+10);
+        rect2.setWidth(r.nextDouble(100 - 10 + 1) + 10);
         rect2.setLayoutX(x);
-
     }
+
     public void playGame() {
 //        stick = new Line();
 //        extendStick(stick);
 
     }
 
-    public void inc(){
-        if (check == 0){
-
+    public void inc() {
+        if (check == 0) {
             time = new Timeline(new KeyFrame(Duration.millis(25), event -> incStick()));
             time.setCycleCount(Timeline.INDEFINITE);
             time.play();
-
         }
-
     }
-    public void incStick(){
-        if (check == 0){
-            stick.setHeight(stick.getHeight()+5);
 
+    public void incStick() {
+        if (check == 0) {
+            stick.setHeight(stick.getHeight() + 5);
         }
-
-
     }
-    public void stop() throws InterruptedException {
-        if (check == 0){
-            check =1;
+
+    public void stop() {
+        if (check == 0) {
+            check = 1;
             if (time != null) {
                 time.stop();
 
-                double h = stick.getHeight();
-                double w = stick.getWidth();
+                RotateTransition rotateTransition = new RotateTransition();
+                rotateTransition.setNode(stick);
+                rotateTransition.setDuration(Duration.millis(1000));
+                rotateTransition.setByAngle(90);
+                rotateTransition.setAxis(new Point3D(stick.getX(),stick.getY(),0));
+                rotateTransition.play();
+                // Set an event handler for when rotation is finished
+                rotateTransition.setOnFinished(event -> {
+                    double h = stick.getHeight();
+                    double w = stick.getWidth();
+                    stick.setHeight(w);
+                    stick.setWidth(h);
 
-                stick.setHeight(w);
-                stick.setWidth(h);
-                moveForward(stick.getX()+stick.getWidth());
-                reset();
+                    // Move forward and reset after rotation is complete
+                    try {
+                        moveForward(stick.getX() + stick.getWidth());
+//                        reset();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                });
 
-
-
+                // Play the rotation animation
             }
-
         }
-
-
     }
+
 }
