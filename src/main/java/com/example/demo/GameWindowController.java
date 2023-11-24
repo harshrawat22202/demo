@@ -3,20 +3,14 @@ package com.example.demo;
 import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Point3D;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -71,10 +65,10 @@ public class GameWindowController implements Initializable {
     }
 
     //
-    public void moveForward(double newX) throws InterruptedException {
+    public void moveForward(double newX){
         TranslateTransition transition = new TranslateTransition();
         transition.setNode(hero);
-        transition.setDuration(Duration.millis((newX - Xhero) / speed_Hero));
+        transition.setDuration(Duration.millis((Math.abs(newX - Xhero)) / speed_Hero));
         transition.setByX(newX);
         transition.play();
         double v = (newX - Xhero) / speed_Hero;
@@ -99,13 +93,13 @@ public class GameWindowController implements Initializable {
 
 
     //
-    public void reset() throws InterruptedException {
+    public void reset() {
         Random r = new Random();
         rect1.setWidth(rect2.getWidth());
-        System.out.println(rect2.getWidth());
-        System.out.println(rect1.getWidth());
+//        System.out.println(rect2.getWidth());
+//        System.out.println(rect1.getWidth());
         double x = r.nextDouble(300 - 100 + 1) + 100;
-        System.out.println(x);
+//        System.out.println(x);
         rect2.setWidth(r.nextDouble(100 - 10 + 1) + 10);
         rect2.setLayoutX(x);
     }
@@ -135,32 +129,25 @@ public class GameWindowController implements Initializable {
             check = 1;
             if (time != null) {
                 time.stop();
-
-                RotateTransition rotateTransition = new RotateTransition();
-                rotateTransition.setNode(stick);
-                rotateTransition.setDuration(Duration.millis(1000));
-                rotateTransition.setByAngle(90);
-                rotateTransition.setAxis(new Point3D(stick.getX(),stick.getY(),0));
-                rotateTransition.play();
-                // Set an event handler for when rotation is finished
-                rotateTransition.setOnFinished(event -> {
-                    double h = stick.getHeight();
-                    double w = stick.getWidth();
-                    stick.setHeight(w);
-                    stick.setWidth(h);
-
-                    // Move forward and reset after rotation is complete
-                    try {
-                        moveForward(stick.getX() + stick.getWidth());
-//                        reset();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                });
-
-                // Play the rotation animation
+                double targetAngle = 90;
+                double pivotX = stick.getX() + stick.getWidth() / 2;
+                double pivotY = stick.getY() + stick.getHeight();
+                Rotate rotation = new Rotate(0, pivotX, pivotY);
+                stick.getTransforms().add(rotation);
+                Timeline timeline = new Timeline(
+                        new KeyFrame(Duration.ZERO, new KeyValue(rotation.angleProperty(), 0)),
+                        new KeyFrame(Duration.millis(500), new KeyValue(rotation.angleProperty(), targetAngle))
+                );
+                double newX=stick.getHeight();
+                TranslateTransition transition = new TranslateTransition();
+                transition.setNode(hero);
+                transition.setDuration(Duration.millis((Math.abs(newX - Xhero)) / speed_Hero));
+                transition.setByX(newX);
+                SequentialTransition sequentialTransition=new SequentialTransition(timeline,transition);
+                sequentialTransition.play();
+                double v = (newX - Xhero) / speed_Hero;
+                Xhero = newX;
             }
         }
     }
-
 }
