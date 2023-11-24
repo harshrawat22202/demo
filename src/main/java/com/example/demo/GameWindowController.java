@@ -143,10 +143,39 @@ public class GameWindowController implements Initializable {
                 transition.setNode(hero);
                 transition.setDuration(Duration.millis((Math.abs(newX - Xhero)) / speed_Hero));
                 transition.setByX(newX);
-                SequentialTransition sequentialTransition=new SequentialTransition(timeline,transition);
-                sequentialTransition.play();
+
                 double v = (newX - Xhero) / speed_Hero;
                 Xhero = newX;
+                if ((stick.getLayoutX()+stick.getHeight())<rect2.getLayoutX() || (stick.getLayoutX()+stick.getHeight())>(rect2.getLayoutX()+rect2.getWidth())){
+                    double targetAngle1 = 90;
+//                    System.out.println((stick.getLayoutX()+stick.getHeight()));
+//                    System.out.println(rect2.getLayoutX());
+//                    System.out.println(stick.getLayoutX()+stick.getHeight());
+//                    System.out.println(rect2.getLayoutX()+rect2.getWidth());
+                    double pivotX1 = stick.getX() + stick.getWidth() / 2;
+                    double pivotY1 = stick.getY() + stick.getHeight();
+                    Rotate rotation1 = new Rotate(0, pivotX1, pivotY1);
+                    stick.getTransforms().add(rotation1);
+                    Timeline timeline1 = new Timeline(
+                            new KeyFrame(Duration.ZERO, new KeyValue(rotation1.angleProperty(), 0)),
+                            new KeyFrame(Duration.millis(500), new KeyValue(rotation1.angleProperty(), targetAngle1))
+                    );
+                    double newX1=rect2.getHeight()+100;
+                    TranslateTransition transition1 = new TranslateTransition();
+                    transition1.setNode(hero);
+                    transition1.setDuration(Duration.millis((Math.abs(newX1 - Xhero)) / speed_Hero));
+                    transition1.setByY(newX1);
+
+                    double v1 = (newX1 - Xhero) / speed_Hero;
+                    Xhero = newX1;
+                    SequentialTransition sequentialTransition=new SequentialTransition(timeline,transition,new ParallelTransition(timeline1,transition1));
+                    sequentialTransition.play();
+//                    transition1.play();
+//                    stick.setRotate(40);
+                }else {
+                    SequentialTransition sequentialTransition=new SequentialTransition(timeline,transition);
+                    sequentialTransition.play();
+                }
             }
         }
     }
