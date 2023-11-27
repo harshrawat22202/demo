@@ -8,7 +8,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -37,15 +40,14 @@ public class Controller {
     Label passwd1;
     @FXML
     Button log;
+    @FXML
+    Button play;
 
-    public void displayLog() throws IOException {
-//        help.setText("How to play");
+    public void displayLog() {
         log.setOpacity(0.9);
-
     }
 
-    public void removeLog() throws IOException {
-//        help.setText("How to play");
+    public void removeLog() {
         log.setOpacity(0);
     }
 
@@ -70,8 +72,6 @@ public class Controller {
             stage.setScene(scene);
             stage.show();
         }
-
-
     }
 
     public void switchToScene2(ActionEvent event) throws IOException {
@@ -90,28 +90,20 @@ public class Controller {
         stage.show();
     }
 
-    public void displayName() throws IOException {
-//        help.setText("How to play");
+    public void displayName() {
         name1.setOpacity(0.25);
-
     }
 
-    public void removeName() throws IOException {
-//        help.setText("How to play");
+    public void removeName() {
         name1.setOpacity(0);
-
     }
 
-    public void displayPass() throws IOException {
-//        help.setText("How to play");
+    public void displayPass() {
         passwd1.setOpacity(0.25);
-
     }
 
-    public void removePass() throws IOException {
-//        help.setText("How to play");
+    public void removePass() {
         passwd1.setOpacity(0);
-
     }
 
     public void switchToScene4(ActionEvent event) throws IOException {
@@ -128,34 +120,28 @@ public class Controller {
             stage.setScene(scene);
             System.out.println(name.getText().getClass());
             stage.show();
-
         }
     }
 
-    public void displayHelp() throws IOException {
-//        help.setText("How to play");
+    public void displayHelp() {
         help.setOpacity(0.25);
     }
 
-    public void removeHelp() throws IOException {
-//        help.setText("How to play");
+    public void removeHelp() {
         help.setOpacity(0);
 
     }
 
-    public void displayShop() throws IOException {
-//        help.setText("How to play");
+    public void displayShop() {
         shop.setOpacity(0.25);
-
     }
 
     public void removeShop() throws IOException {
-//        help.setText("How to play");
         shop.setOpacity(0);
 
     }
 
-    public void exit(ActionEvent event) {
+    public void exit() {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Exiting");
@@ -163,12 +149,11 @@ public class Controller {
         alert.setContentText("Confirm please");
         if (alert.showAndWait().get() == ButtonType.OK) {
             stage = (Stage) pane.getScene().getWindow();
-//            System.out.println("logged out");
             stage.close();
         }
     }
 
-    public void exit2(ActionEvent event) {
+    public void exit2() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Exiting");
         alert.setHeaderText("You are about to exit");
@@ -179,15 +164,24 @@ public class Controller {
         }
     }
 
-    public void showGameWindow() throws IOException {
-        /*Stage gameWindow = new Stage();
-        Parent root = new FXMLLoader(getClass().getResource("gameWindow.fxml")).load();
-        Scene s = new Scene(root);
-        s.getRoot();
-        gameWindow.setScene(s);
-        gameWindow.initModality(Modality.APPLICATION_MODAL);
-        gameWindow.initOwner(stage);
-        gameWindow.show();*/
-        GameWindow.showGameWindow(stage);
+    public void playButton() {
+        Parent root;
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("gameWindow.fxml"));
+            root = fxmlLoader.load();
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            Rectangle stick = (Rectangle) root.lookup("#stick");
+            scene.addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
+                if (keyEvent.getCode() == KeyCode.SPACE) {
+                    System.out.println(stick);
+                }
+            });
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

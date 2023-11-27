@@ -121,7 +121,4 @@ public class Player implements Serializable {//implementing flyweight
 
     public void saveGame() {
     }
-
-    public static void useStickHero(Player P, StickHero S) {
-    }
 }
