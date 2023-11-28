@@ -14,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -175,10 +176,10 @@ public class Controller {
             root = fxmlLoader.load();
             Stage stage = new Stage();
             Scene scene = new Scene(root);
-            Node hero = scene.lookup("#hero");
-            Node stick = scene.lookup("#stick");
+            ImageView hero = (ImageView) scene.lookup("#hero");
+            Rectangle stick = (Rectangle)scene.lookup("#stick");
 
-            Rotate rotate = new Rotate(0, stick.getLayoutX(), stick.getLayoutY());// coordinates are set here
+            Rotate rotate = new Rotate(0, stick.getX(), stick.getY()+30);// coordinates are set here
 
             scene.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
                 if (keyEvent.getCode() == KeyCode.SPACE) {
@@ -194,5 +195,4 @@ public class Controller {
             e.printStackTrace();
         }
     }
-
 }

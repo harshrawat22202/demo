@@ -1,21 +1,17 @@
 package com.example.demo;
 
 import javafx.animation.*;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import java.net.URL;
 import java.util.*;
 
@@ -73,8 +69,8 @@ public class GameWindowController implements Initializable {
     public void placeCherry() {
         ImageView x = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("Cherry.png"))));
         x.setId("Cherry");
-        x.setLayoutX(new Random().nextDouble(10 + platforms.get(index - 1).getWidth(), platforms.get(index).getLayoutX()));
-        x.setLayoutY(hero.getLayoutY());
+        x.setX(new Random().nextDouble(10 + platforms.get(index - 1).getWidth(), platforms.get(index).getLayoutX()));
+        x.setLayoutY(hero.getLayoutY()+50);
         pane.getChildren().add(x);
         System.out.println("Placed Cherry");
 
@@ -103,7 +99,8 @@ public class GameWindowController implements Initializable {
             double pivotY = stick.getY() + stick.getHeight();
             Rotate rotation = new Rotate(0, pivotX, pivotY);
             stick.getTransforms().add(rotation);
-            Timeline timeline = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(rotation.angleProperty(), 0)), new KeyFrame(Duration.millis(500), new KeyValue(rotation.angleProperty(), targetAngle)));
+            Timeline timeline = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(rotation.angleProperty(), 0)),
+                    new KeyFrame(Duration.millis(500), new KeyValue(rotation.angleProperty(), targetAngle)));
             double newX = stick.getHeight();
             TranslateTransition transition = new TranslateTransition();
             transition.setNode(hero);
