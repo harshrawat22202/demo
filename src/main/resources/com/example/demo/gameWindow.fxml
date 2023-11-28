@@ -27,5 +27,11 @@
         </ImageView>
       <Rectangle fx:id="stick" arcHeight="5.0" arcWidth="5.0" fill="#151515" layoutX="48.0" layoutY="358.0" stroke="BLACK" strokeType="INSIDE" width="3.0" AnchorPane.bottomAnchor="152.0" AnchorPane.leftAnchor="48.0" />
       <Button layoutX="1.0" layoutY="4.0" mnemonicParsing="false" onMousePressed="#inc" onMouseReleased="#stop" opacity="0.0" prefHeight="514.0" prefWidth="320.0" text="Button" />
+      <Text fx:id="cherries" layoutX="253.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+      <ImageView fitHeight="39.0" fitWidth="43.0" layoutX="264.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Cherry.png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>

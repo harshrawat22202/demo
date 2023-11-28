@@ -1,9 +1,14 @@
 package com.example.demo;
 
 import javafx.animation.*;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -12,9 +17,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class GameWindowController implements Initializable {
     @FXML
@@ -28,13 +31,52 @@ public class GameWindowController implements Initializable {
     private Rectangle stick;
     @FXML
     private Text score;
+    @FXML
+    private Text cherries;
     private int number = 0;
     private int index = 0;
     private int check;
     private Timeline time;
+    private AnimationTimer collision = new AnimationTimer() {
+        @Override
+        public void handle(long l) {
+            Node cherry = null;
+            for (Node n : pane.getChildren()) {
+                if ("Cherry".equals(n.getId())) {
+                    cherry = n;
+                }
+            }
+            if (cherry != null) {
+                if (hero.getBoundsInParent().intersects(cherry.getBoundsInParent())) {
+                    pane.getChildren().remove(cherry);
+                    System.out.println("Cherry");
+                    cherries.setText(Integer.toString(Integer.parseInt(cherries.getText()) + 1));
+                    pane.getChildren().removeIf(child -> "Cherry".equals(child.getId()));
+                }
+            }
+        }
+    };
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+        hero.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.SPACE) {
+                RotateTransition rotateTransition = new RotateTransition();
+                rotateTransition.setNode(hero);
+                rotateTransition.setAxis(Rotate.X_AXIS);
+                rotateTransition.setByAngle(180);
+                rotateTransition.play();
+            }
+        });
+        hero.setOnKeyReleased(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.SPACE) {
+                RotateTransition rotateTransition = new RotateTransition();
+                rotateTransition.setNode(hero);
+                rotateTransition.setAxis(Rotate.X_AXIS);
+                rotateTransition.setByAngle(180);
+                rotateTransition.play();
+            }
+        });
         makePlatform();
         pane.getChildren().add(platforms.get(index));
         Rectangle rectangle = platforms.get(index);
@@ -43,6 +85,17 @@ public class GameWindowController implements Initializable {
         pane.getChildren().add(platforms.get(index + 1));
         index++;
         check = 0;
+        collision.start();
+    }
+
+    public void placeCherry() {
+        ImageView x = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("Cherry.png"))));
+        x.setId("Cherry");
+        x.setLayoutX(new Random().nextDouble(10 + platforms.get(index - 1).getWidth(), platforms.get(index).getLayoutX()));
+        x.setLayoutY(hero.getLayoutY());
+        pane.getChildren().add(x);
+        System.out.println("Placed Cherry");
+
     }
 
     public void inc() {
@@ -50,9 +103,6 @@ public class GameWindowController implements Initializable {
             time = new Timeline(new KeyFrame(Duration.millis(25), event -> incStick()));
             time.setCycleCount(Timeline.INDEFINITE);
             time.play();
-            System.out.println("hello");
-
-
         }
     }
 
@@ -79,10 +129,6 @@ public class GameWindowController implements Initializable {
             transition.setByX(newX);
             if ((stick.getHeight() + stick.getLayoutX()) > (platforms.get(index).getLayoutX() + platforms.get(index).getWidth()) || (stick.getLayoutX() + stick.getHeight()) < platforms.get(index).getLayoutX()) {
                 double targetAngle1 = 90;
-                System.out.println((stick.getLayoutX() + stick.getHeight()));
-                System.out.println(platforms.get(index).getLayoutX());
-                System.out.println(stick.getLayoutX() + stick.getHeight());
-                System.out.println(platforms.get(index).getLayoutX() + platforms.get(index).getWidth());
                 double pivotX1 = stick.getX() + stick.getWidth() / 2;
                 double pivotY1 = stick.getY() + stick.getHeight();
                 Rotate rotation1 = new Rotate(0, pivotX1, pivotY1);
@@ -96,14 +142,8 @@ public class GameWindowController implements Initializable {
                 SequentialTransition sequentialTransition = new SequentialTransition(timeline, transition, new ParallelTransition(timeline1, transition1));
                 sequentialTransition.play();
                 Stage stage = (Stage) stick.getScene().getWindow();
-                sequentialTransition.setOnFinished(event -> {
-                    stage.close();
-                });
+                sequentialTransition.setOnFinished(event -> stage.close());
             } else {
-                System.out.println((stick.getLayoutX() + stick.getHeight()));
-                System.out.println(platforms.get(index).getLayoutX());
-                System.out.println(stick.getLayoutX() + stick.getHeight());
-                System.out.println(platforms.get(index).getLayoutX() + platforms.get(index).getWidth());
                 double newX1 = platforms.get(index).getLayoutX();
                 TranslateTransition transition1 = new TranslateTransition();
                 transition1.setNode(platforms.get(index));
@@ -120,14 +160,11 @@ public class GameWindowController implements Initializable {
                 SequentialTransition sequentialTransition = new SequentialTransition(timeline, transition, new ParallelTransition(transition1, transition123, transition12));
                 sequentialTransition.play();
                 transition.setOnFinished(event -> {
-                    System.out.println(platforms.get(index - 1).getLayoutX());
                     platforms.get(index - 1).setLayoutX(-90);
                 });
                 sequentialTransition.setOnFinished(ev -> {
                     stick.setLayoutX(hero.getLayoutX());
                     stick.setHeight(0);
-                    System.out.println(platforms.get(index).getLayoutX());
-                    System.out.println(hero.getLayoutY());
                     double pivotY1 = stick.getX() + stick.getWidth() / 2;
                     double pivotX1 = stick.getY() + stick.getHeight();
                     Rotate rotation1 = new Rotate(0, pivotX1, pivotY1);
@@ -136,8 +173,6 @@ public class GameWindowController implements Initializable {
                     timeline1.play();
                     timeline1.setOnFinished(e -> {
                         TranslateTransition transition1234 = new TranslateTransition();
-                        System.out.println(stick.getLayoutY());
-                        System.out.println(platforms.get(index).getLayoutY());
                         double ne = platforms.get(index).getHeight();
                         transition1234.setNode(stick);
                         transition1234.setDuration(Duration.millis((Math.abs(ne)) / speed_Hero));
@@ -145,16 +180,13 @@ public class GameWindowController implements Initializable {
                         transition1234.play();
                         transition1234.setOnFinished(eve -> {
                             index++;
-                            if (index >= number) {
-                                makePlatform();
-                            }
-                            System.out.println(stick.getLayoutX());
                             pane.getChildren().add(platforms.get(index));
                             Rectangle rectangle = platforms.get(index - 1);
                             double w = rectangle.getX() - 20 + rectangle.getWidth() + new Random().nextDouble(50, 150) + 10;
                             platforms.get(index).setLayoutX(w);
                             check = 0;
                         });
+                        placeCherry();
                     });
                     if (stick.getHeight() + stick.getLayoutX() > (platforms.get(index).getLayoutX() + platforms.get(index).getWidth() / 2)) {
                         score.setText(Integer.toString(Integer.parseInt(score.getText()) + 2));
@@ -186,9 +218,5 @@ public class GameWindowController implements Initializable {
                 platforms.add(r);
             }
         }
-    }
-
-    public Rectangle getStick() {
-        return stick;
     }
 }

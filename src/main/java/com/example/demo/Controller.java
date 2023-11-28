@@ -1,7 +1,13 @@
 package com.example.demo;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -12,8 +18,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -28,7 +36,6 @@ public class Controller {
     TextField name;
     @FXML
     TextField passwd;
-
     @FXML
     Label help;
     @FXML
@@ -50,7 +57,6 @@ public class Controller {
     public void removeLog() {
         log.setOpacity(0);
     }
-
 
     public void switchToScene1(ActionEvent event) throws IOException {
         Parent root = new FXMLLoader(getClass().getResource("scene1.fxml")).load();
@@ -118,7 +124,6 @@ public class Controller {
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
-            System.out.println(name.getText().getClass());
             stage.show();
         }
     }
@@ -142,7 +147,6 @@ public class Controller {
     }
 
     public void exit() {
-
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Exiting");
         alert.setHeaderText("You are about to exit");
@@ -171,12 +175,27 @@ public class Controller {
             root = fxmlLoader.load();
             Stage stage = new Stage();
             Scene scene = new Scene(root);
-            Rectangle stick = (Rectangle) root.lookup("#stick");
-            scene.addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
+            Node hero = scene.lookup("#hero");
+            Node stick = scene.lookup("#stick");
+
+            Rotate rotate = new Rotate(0, stick.getLayoutX(), stick.getLayoutY());// coordinates are set here
+
+            scene.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
                 if (keyEvent.getCode() == KeyCode.SPACE) {
-                    System.out.println(stick);
+                    System.out.println("Space pressed");
+                    rotate.setAngle(180.0);
+                    hero.getTransforms().add(rotate);
                 }
             });
+
+            scene.addEventFilter(KeyEvent.KEY_RELEASED, keyEvent -> {
+                if (keyEvent.getCode() == KeyCode.SPACE) {
+                    System.out.println("Space released");
+                    rotate.setAngle(0.0);
+                    hero.getTransforms().add(rotate);
+                }
+            });
+
             stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
@@ -184,4 +203,5 @@ public class Controller {
             e.printStackTrace();
         }
     }
+
 }
