@@ -57,11 +57,25 @@ public class GameWindowController implements Initializable {
     private AnimationTimer collisonWithPlatform = new AnimationTimer() {
         @Override
         public void handle(long l) {
-            if (hero.getBoundsInParent().intersects(platforms.get(index + 1).getBoundsInParent())) {
+            if (hero.getBoundsInParent().intersects(platforms.get(index).getBoundsInParent()) && isInverted) {
+                System.out.println("thukk gaya");// chl nahi raha theek se comment out mar dio is field ko
                 /*yaha par wahi girne wala animation daldio jo tune neeche dala hai*/
             }
         }
     };
+
+    private AnimationTimer checkInversion = new AnimationTimer() {
+        @Override
+        public void handle(long l) {
+            if (hero.getLayoutY() + hero.getFitHeight() < platforms.get(index + 1).getY()) {
+                isInverted = true;
+            } else {
+                isInverted = false;
+            }
+        }
+    };
+    private boolean isInverted = false;
+
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -71,10 +85,11 @@ public class GameWindowController implements Initializable {
         double w = rectangle.getX() + rectangle.getWidth() + new Random().nextDouble(50, 150) + 10;
         platforms.get(index + 1).setLayoutX(w);
         pane.getChildren().add(platforms.get(index + 1));
-        index++;
         check = 0;
+        index++;
         collision.start();
         collisonWithPlatform.start();
+        checkInversion.start();
     }
 
     public void placeCherry() {
