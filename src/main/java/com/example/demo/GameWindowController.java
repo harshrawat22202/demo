@@ -59,24 +59,6 @@ public class GameWindowController implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        hero.setOnKeyPressed(keyEvent -> {
-            if (keyEvent.getCode() == KeyCode.SPACE) {
-                RotateTransition rotateTransition = new RotateTransition();
-                rotateTransition.setNode(hero);
-                rotateTransition.setAxis(Rotate.X_AXIS);
-                rotateTransition.setByAngle(180);
-                rotateTransition.play();
-            }
-        });
-        hero.setOnKeyReleased(keyEvent -> {
-            if (keyEvent.getCode() == KeyCode.SPACE) {
-                RotateTransition rotateTransition = new RotateTransition();
-                rotateTransition.setNode(hero);
-                rotateTransition.setAxis(Rotate.X_AXIS);
-                rotateTransition.setByAngle(180);
-                rotateTransition.play();
-            }
-        });
         makePlatform();
         pane.getChildren().add(platforms.get(index));
         Rectangle rectangle = platforms.get(index);

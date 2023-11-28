@@ -187,15 +187,6 @@ public class Controller {
                     hero.getTransforms().add(rotate);
                 }
             });
-
-            scene.addEventFilter(KeyEvent.KEY_RELEASED, keyEvent -> {
-                if (keyEvent.getCode() == KeyCode.SPACE) {
-                    System.out.println("Space released");
-                    rotate.setAngle(0.0);
-                    hero.getTransforms().add(rotate);
-                }
-            });
-
             stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
