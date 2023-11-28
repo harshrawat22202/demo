@@ -12,6 +12,7 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 import java.net.URL;
 import java.util.*;
 
@@ -53,6 +54,15 @@ public class GameWindowController implements Initializable {
         }
     };
 
+    private AnimationTimer collisonWithPlatform = new AnimationTimer() {
+        @Override
+        public void handle(long l) {
+            if (hero.getBoundsInParent().intersects(platforms.get(index + 1).getBoundsInParent())) {
+                /*yaha par wahi girne wala animation daldio jo tune neeche dala hai*/
+            }
+        }
+    };
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         makePlatform();
@@ -64,13 +74,14 @@ public class GameWindowController implements Initializable {
         index++;
         check = 0;
         collision.start();
+        collisonWithPlatform.start();
     }
 
     public void placeCherry() {
         ImageView x = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("Cherry.png"))));
         x.setId("Cherry");
         x.setX(new Random().nextDouble(10 + platforms.get(index - 1).getWidth(), platforms.get(index).getLayoutX()));
-        x.setLayoutY(hero.getLayoutY()+50);
+        x.setLayoutY(hero.getLayoutY() + 50);
         pane.getChildren().add(x);
         System.out.println("Placed Cherry");
 
