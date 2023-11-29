@@ -177,15 +177,19 @@ public class Controller {
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             ImageView hero = (ImageView) scene.lookup("#hero");
-            Rectangle stick = (Rectangle)scene.lookup("#stick");
-
-            Rotate rotate = new Rotate(0, stick.getX(), stick.getY()+30);// coordinates are set here
-
+            Rectangle stick = (Rectangle) scene.lookup("#stick");
+            Rotate rotate = new Rotate(0, stick.getX(), stick.getY() + 40);// coordinates are set here
             scene.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
                 if (keyEvent.getCode() == KeyCode.SPACE) {
                     System.out.println("Space pressed");
-                    rotate.setAngle(180.0);
-                    hero.getTransforms().add(rotate);
+                    if (!hero.getTransforms().contains(rotate)) { // initialize rotation only once
+                        rotate.setAngle(180.0);
+                        hero.getTransforms().add(rotate);
+                    } else {
+                        double currentAngle = rotate.getAngle();
+                        double newAngle = currentAngle + 180.0; // rotate by 180 degrees
+                        rotate.setAngle(newAngle);
+                    }
                 }
             });
             stage.setScene(scene);
