@@ -1,25 +1,47 @@
 package com.example.demo;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 public class Game implements Serializable{
-    private int score;
-    private LocalDateTime Created;
+    private int score=0;
+    private int cherriesCollected=0;
+    private final LocalDateTime Created;
     private LocalDateTime LastPlayed;
-    private Data info;
 
-    public Game(){}
+    public Game(){
+        this.Created=LocalDateTime.now();
+    }
 
-    public void serialize(Game g){}//for Game
+    public LocalDateTime getCreated() {
+        return Created;
+    }
 
-    public Game deSerialize(){
-        return null;
+    public LocalDateTime getLastPlayed(){
+        return this.LastPlayed;
+    }
+
+    public void setLastPlayed(LocalDateTime t){
+        this.LastPlayed=t;
+    }
+
+    public int getCherriesCollected() {
+        return cherriesCollected;
+    }
+
+    public void setCherriesCollected(int cherriesCollected) {
+        this.cherriesCollected = cherriesCollected;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public String toString(){
+        return LastPlayed.toString()+" "+ score +" "+ cherriesCollected;
     }
 }

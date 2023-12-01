@@ -107,16 +107,15 @@ public class GameWindowController implements Initializable {
             time.setCycleCount(Timeline.INDEFINITE);
             time.play();
         } else {
-            Rotate rotate = new Rotate(0, stick.getX(), stick.getY() + 40);
-            if (!hero.getTransforms().contains(rotate)) { // initialize rotation only once
-                rotate.setAngle(180.0);
-                hero.getTransforms().add(rotate);
-                isInverted = !isInverted;
+            Rotate rotate = new Rotate(0, stick.getX() + 20, stick.getY() + 40);
+            rotate.setAngle(180.0);
+            hero.getTransforms().add(rotate);
+            if (isInverted) {
+                hero.setScaleX(1);
             } else {
-                double currentAngle = rotate.getAngle();
-                double newAngle = currentAngle + 180.0; // rotate by 180 degrees
-                rotate.setAngle(newAngle);
+                hero.setScaleX(-1);
             }
+            isInverted = !isInverted;
         }
     }
 
