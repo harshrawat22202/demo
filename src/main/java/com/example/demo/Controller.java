@@ -17,6 +17,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
@@ -185,10 +186,35 @@ public class Controller {
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setScene(scene);
+            Button b=(Button) root.lookup("#pause");
+            b.setOnMousePressed(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    Parent r;
+                    try {
+                        r=new FXMLLoader(getClass().getResource("PauseWindow.fxml")).load();
+                        Stage s=new Stage();
+                        Scene scene1=new Scene(r);
+                        s.setScene(scene1);
+                        s.initModality(Modality.APPLICATION_MODAL);
+                        s.show();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void pauseWindow(ActionEvent event) throws IOException {
+        Parent root = new FXMLLoader(getClass().getResource("scene3.fxml")).load(); // Use scene2.fxml
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }

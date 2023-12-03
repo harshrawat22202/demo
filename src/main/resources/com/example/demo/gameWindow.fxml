@@ -8,37 +8,32 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="pane" prefHeight="507.0" prefWidth="318.0" xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.GameWindowController">
+<AnchorPane fx:id="pane" prefHeight="507.0" prefWidth="318.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.GameWindowController">
     <children>
         <ImageView fitHeight="571.0" fitWidth="320.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@man.png"/>
+                <Image url="@man.png" />
             </image>
         </ImageView>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" height="45.0" layoutX="139.0" layoutY="17.0" opacity="0.16"
-                   stroke="BLACK" strokeType="INSIDE" width="57.0"/>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" height="45.0" layoutX="139.0" layoutY="17.0" opacity="0.16" stroke="BLACK" strokeType="INSIDE" width="57.0" />
         <Text fx:id="score" layoutX="160.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
             <font>
-                <Font size="24.0"/>
+                <Font size="24.0" />
             </font>
         </Text>
-        <ImageView fx:id="hero" fitHeight="39.0" fitWidth="46.0" layoutX="50.0" layoutY="338.0" pickOnBounds="true"
-                   preserveRatio="true">
+        <ImageView fx:id="hero" fitHeight="39.0" fitWidth="46.0" layoutX="50.0" layoutY="338.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@hero.png"/>
+                <Image url="@hero.png" />
             </image>
         </ImageView>
-        <Rectangle fx:id="stick" arcHeight="5.0" arcWidth="5.0" fill="#151515" layoutX="59.0" layoutY="358.0"
-                   stroke="BLACK" strokeType="INSIDE" width="3.0" AnchorPane.bottomAnchor="152.0"/>
-        <Button layoutX="1.0" layoutY="3.0" mnemonicParsing="false" onMousePressed="#inc" onMouseReleased="#stop"
-                opacity="0.0" prefHeight="514.0" prefWidth="320.0" text="Button"/>
-        <Text fx:id="cherries" layoutX="253.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0"/>
-        <ImageView fitHeight="39.0" fitWidth="43.0" layoutX="264.0" layoutY="35.0" pickOnBounds="true"
-                   preserveRatio="true">
+        <Rectangle fx:id="stick" arcHeight="5.0" arcWidth="5.0" fill="#151515" layoutX="59.0" layoutY="358.0" stroke="BLACK" strokeType="INSIDE" width="3.0" AnchorPane.bottomAnchor="152.0" />
+        <Button layoutX="1.0" layoutY="3.0" mnemonicParsing="false" onMousePressed="#inc" onMouseReleased="#stop" opacity="0.0" prefHeight="514.0" prefWidth="320.0" text="Button" />
+        <Text fx:id="cherries" layoutX="253.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+        <ImageView fitHeight="39.0" fitWidth="43.0" layoutX="264.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@Cherry.png"/>
+                <Image url="@Cherry.png" />
             </image>
         </ImageView>
+      <Button fx:id="pause" layoutX="26.0" layoutY="27.0" mnemonicParsing="false" style="-fx-background-color: black;" text="| |" textFill="WHITE" />
     </children>
 </AnchorPane>
