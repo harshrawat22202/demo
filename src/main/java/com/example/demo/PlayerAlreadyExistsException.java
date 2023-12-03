@@ -1,6 +1,6 @@
 package com.example.demo;
 public class PlayerAlreadyExistsException extends Exception{//can be used later
-    private String Message="Login Invalid Credentials";
+    private String Message="Enter Unique username";
 
     @Override
     public String toString(){

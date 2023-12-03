@@ -1,29 +1,18 @@
 package com.example.demo;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.transform.Rotate;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -128,6 +117,16 @@ public class Controller {
         } else if (passwd.getText().isEmpty()) {
             displayPass();
         } else {
+            String n=name.getText();
+            String p=passwd.getText();
+            try {
+                FileHandler.getInstanceOfFileHandler().addPlayer(n, p);
+            }catch (PlayerAlreadyExistsException e){
+                String info="username should be unique";
+                Alert alert=new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText(info);
+                alert.showAndWait();
+            }
             removeName();
             removePass();
             Parent root = new FXMLLoader(getClass().getResource("scene4.fxml")).load(); // Use scene2.fxml

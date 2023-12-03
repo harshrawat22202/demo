@@ -1,13 +1,9 @@
 package com.example.demo;
 
 import javafx.animation.*;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -17,7 +13,9 @@ import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.*;
 
@@ -74,6 +72,7 @@ public class GameWindowController implements Initializable {
                 Stage stage = (Stage) st.get(index2).getScene().getWindow();
                 stage.close();
                 collisonWithPlatform.stop();
+                temporarySave();
             }
         }
     };
@@ -166,6 +165,7 @@ public class GameWindowController implements Initializable {
                 sequentialTransition.play();
                 Stage stage = (Stage) st.get(index2).getScene().getWindow();
                 sequentialTransition.setOnFinished(event -> stage.close());
+                temporarySave();
             } else {
                 transition.setByX(platforms.get(index).getLayoutX() - platforms.get(index - 1).getWidth() + platforms.get(index).getWidth());
                 double newX1 = platforms.get(index).getLayoutX();
@@ -216,6 +216,19 @@ public class GameWindowController implements Initializable {
                     checkCherry = true;
                 });
             }
+        }
+    }
+
+    private void temporarySave() {
+        PrintWriter fw= null;
+        try {
+            fw = new PrintWriter(new FileWriter("auxiliary.txt"));
+            fw.println(score.getText());
+            fw.println(cherries.getText());
+        } catch (IOException e) {
+            System.out.println(e);
+        }finally {
+            fw.close();
         }
     }
 
