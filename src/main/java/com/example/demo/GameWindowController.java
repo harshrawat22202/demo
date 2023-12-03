@@ -37,6 +37,7 @@ public class GameWindowController implements Initializable {
     private int check;
     private Timeline time;
     private boolean stopAllAnimation = false;
+    private boolean checkCherry = false;
     private AnimationTimer collision = new AnimationTimer() {
         @Override
         public void handle(long l) {
@@ -92,9 +93,12 @@ public class GameWindowController implements Initializable {
     }
 
     public void placeCherry() {
+        if (checkCherry){
+            pane.getChildren().removeIf(child->"Cherry".equals(child.getId()));
+        }
         ImageView x = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("Cherry.png"))));
         x.setId("Cherry");
-        x.setX(new Random().nextDouble(10 + platforms.get(index - 1).getWidth(), platforms.get(index).getLayoutX()));
+        x.setX(new Random().nextDouble(platforms.get(index - 1).getWidth(), platforms.get(index).getLayoutX() - x.getFitWidth() - 10));
         x.setLayoutY(hero.getLayoutY() + 50);
         pane.getChildren().add(x);
         System.out.println("Placed Cherry");
@@ -107,7 +111,7 @@ public class GameWindowController implements Initializable {
             time.setCycleCount(Timeline.INDEFINITE);
             time.play();
         } else {
-            Rotate rotate = new Rotate(0, stick.getX() + 20, stick.getY() + 40);
+            Rotate rotate = new Rotate(0, stick.getX() + 8, stick.getY() + 40);
             rotate.setAngle(180.0);
             hero.getTransforms().add(rotate);
             if (isInverted) {
@@ -204,10 +208,11 @@ public class GameWindowController implements Initializable {
                         score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
                     }
                     placeCherry();
+                    checkCherry = true;
                 });
-
             }
         }
+
     }
 
     public void makeStick() {
