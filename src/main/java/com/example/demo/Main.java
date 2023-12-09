@@ -7,13 +7,19 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import javax.sound.sampled.*;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Objects;
 
 public class Main extends Application {
+
+
     @Override
     public void start(Stage stage) {
         try {
+            MusicPlayer.playBackgroundMusic("press_start.wav");
             Parent root = new FXMLLoader(getClass().getResource("scene1.fxml")).load();
             Scene scene = new Scene(root);
             stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("logo.png"))));
@@ -29,4 +35,5 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
 }
