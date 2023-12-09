@@ -26,5 +26,12 @@ In case player falls or collides with platform he can use 2 cherries to revive h
 We have made 8 scenes and only gameWindow has a separate controller . We have used AniamtionTimer to detect collision with platform and catching of cherries .
 
 ## Multithreading 
-We have used multithreading in playing music in background and used Animation timer for
+We have used multithreading in playing music in parallel in background and used Animation timer for
 detection of collisions
+
+## Saving of score and high scores
+data.txt and reload.txt are important for saving and revival of player using cherries without this file it wouldn't be possible
+here we save the score of the player and number of cherries earned in first 2 lines respectively .
+HiScore.txt save high score of a player . Initially contents of reload.txt is 100 
+entry in HiScore.txt is 0
+data.txt has initial entry of 0 in first line and 0 in second line .
