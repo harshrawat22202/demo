@@ -49,6 +49,11 @@ public class GameWindowController implements Initializable {
 
     @FXML
     private ImageView rr;
+
+    @FXML
+    private Label r221;
+    @FXML
+    private Label r51;
     @FXML
     private Rectangle stick;
     @FXML
@@ -134,6 +139,21 @@ public class GameWindowController implements Initializable {
                 System.out.println("collision");// chl nahi raha theek se comment out mar dio is field ko
                 /*yaha par wahi girne wala animation daldio jo tune neeche dala hai*/
                 collision.stop();
+
+                if (Integer.parseInt(score.getText())>Integer.parseInt(r51.getText())){
+
+                    try {
+                        PrintWriter ff = new PrintWriter(new FileOutputStream("HiScore.txt"));
+
+                        ff.println(score.getText());
+                        r51.setText(score.getText());
+                        ff.close();
+                    } catch (FileNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
+
+
+                }
                 st.get(index2).setOpacity(0);
                 if (index2 > 0) {
                     st.get(index2 - 1).setOpacity(0);
@@ -179,6 +199,8 @@ public class GameWindowController implements Initializable {
                 r7.setOpacity(0.3);
                 f2.setOpacity(1);
                 rr.setOpacity(1);
+                r221.setOpacity(1);
+                r51.setOpacity(1);
 
 
                 temporarySave();
@@ -191,6 +213,23 @@ public class GameWindowController implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+        Scanner sc2 = null;
+        try {
+            sc2 = new Scanner(new FileReader("HiScore.txt"));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        if (sc2.hasNext()) {
+            String a1 = sc2.nextLine();
+//            String a2 = sc2.nextLine();
+//            String a3 = sc.nextLine();
+            System.out.println(a1);
+//            System.out.println(a2);
+            score.setText(a1);
+            r51.setText(a1);
+//            r51.setText(a3);
+        }
+
         Scanner sc = null;
         try {
             sc = new Scanner(new FileReader("reload.txt"));
@@ -199,17 +238,37 @@ public class GameWindowController implements Initializable {
         }
         if (sc.hasNext()) {
             String a1 = sc.nextLine();
-            String a2 = sc.nextLine();
             System.out.println(a1);
-            System.out.println(a2);
-            score.setText(a1);
-            cherries.setText(a2);
+            if (Integer.parseInt(a1)!=100){
+                String a2 = sc.nextLine();
+//            String a3 = sc.nextLine();
+                System.out.println(a1);
+                System.out.println(a2);
+                score.setText(a1);
+                cherries.setText(a2);
+
+            }else {
+                score.setText("0");
+                cherries.setText("0");
+            }
+
+
+//            r51.setText(a3);
         }
+//        try {
+//            Files.write(Path.of("reload.txt"),new byte[0], StandardOpenOption.TRUNCATE_EXISTING);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+
         try {
-            Files.write(Path.of("reload.txt"),new byte[0], StandardOpenOption.TRUNCATE_EXISTING);
-        } catch (IOException e) {
+            PrintWriter ff1 = new PrintWriter(new FileOutputStream("reload.txt"));
+            ff1.println("100");
+            ff1.close();
+        } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+
         makePlatform();
         makeStick();
         pane.getChildren().add(platforms.get(index));
@@ -283,6 +342,10 @@ public class GameWindowController implements Initializable {
             if ((st.get(index2).getHeight() + st.get(index2).getLayoutX()) > (platforms.get(index).getLayoutX() + platforms.get(index).getWidth()) || (st.get(index2).getLayoutX() + st.get(index2).getHeight()) < platforms.get(index).getLayoutX()) {
                 double targetAngle1 = 90;
                 check2 = 1;
+                System.out.println(Integer.parseInt(r51.getText()));
+                System.out.println(Integer.parseInt(score.getText()));
+
+
                 transition.setDuration(Duration.millis((Math.abs(newX)) / speed_Hero));
                 transition.setByX(st.get(index2).getHeight());
                 double pivotX1 = st.get(index2).getX() + st.get(index2).getWidth() / 2;
@@ -299,6 +362,24 @@ public class GameWindowController implements Initializable {
                 sequentialTransition.play();
                 Stage stage = (Stage) st.get(index2).getScene().getWindow();
                 sequentialTransition.setOnFinished(event -> {
+                    if (Integer.parseInt(score.getText())>Integer.parseInt(r51.getText())){
+
+                        try {
+                            PrintWriter ff = new PrintWriter(new FileOutputStream("HiScore.txt"));
+
+                            ff.println(score.getText());
+                            r51.setText(score.getText());
+                            ff.close();
+                        } catch (FileNotFoundException e) {
+                            throw new RuntimeException(e);
+                        }
+
+
+                    }
+
+
+
+
                     st.get(index2).setOpacity(0);
                     if (index2 > 0) {
                         st.get(index2 - 1).setOpacity(0);
@@ -343,6 +424,9 @@ public class GameWindowController implements Initializable {
                     r7.setOpacity(0.3);
                     f2.setOpacity(1);
                     rr.setOpacity(1);
+                    r221.setOpacity(1);
+                    r51.setOpacity(1);
+
 
 
                 });
@@ -460,7 +544,14 @@ public class GameWindowController implements Initializable {
         }
     }
 
-    public void reload1() {
+    public void reload1() throws IOException {
+
+
+
+
+
+
+
         Stage stage1 = (Stage) cherries.getScene().getWindow();
         stage1.close();
         Parent root;
@@ -516,7 +607,7 @@ public class GameWindowController implements Initializable {
         fw.close();
     }
 
-    public void revive() throws FileNotFoundException {
+    public void revive() throws IOException {
         String score1 = null;
         String cherry1 = null;
         Scanner sc = new Scanner(new FileReader("data.txt"));
@@ -529,6 +620,7 @@ public class GameWindowController implements Initializable {
             String cherry2 = cherries.getText();
             pw.println(score2);
             pw.println(cherry2);
+
             pw.close();
             reload1();
         }
