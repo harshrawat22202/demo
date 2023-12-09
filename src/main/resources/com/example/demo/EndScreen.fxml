@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane1" prefHeight="255.0" prefWidth="530.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.Controller">
+<AnchorPane fx:id="pane1" prefHeight="255.0" prefWidth="530.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.demo.Controller">
     <children>
         <ImageView fitHeight="407.0" fitWidth="702.0" pickOnBounds="true" preserveRatio="true">
             <image>
