@@ -28,11 +28,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.media.Media;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.Random.*;
 
@@ -80,21 +78,14 @@ public class GameWindowController implements Initializable {
     private Label r4;
     @FXML
     private Label r5;
-
     @FXML
     private Button home;
-
     @FXML
     private Button reload;
     @FXML
     private ImageView ffff;
-
     @FXML
     private ImageView f2;
-
-
-
-
     @FXML
     private Text cherries;
     private int number = 0;
@@ -134,81 +125,25 @@ public class GameWindowController implements Initializable {
         public void handle(long l) {
             if (hero.getBoundsInParent().intersects(platforms.get(index).getBoundsInParent()) && isInverted) {
                 stopAllAnimation = true;
-                check2=1;
+                check2 = 1;
                 System.out.println("collision");// chl nahi raha theek se comment out mar dio is field ko
                 /*yaha par wahi girne wala animation daldio jo tune neeche dala hai*/
                 collision.stop();
-//                Stage stage = (Stage) st.get(index2).getScene().getWindow();
-//                stage.close();
-
-//                double newX = st.get(index2).getHeight();
-//
-//                TranslateTransition transition = new TranslateTransition();
-//                transition.setNode(hero);
-//
-//
-//                transition.setDuration(Duration.millis((Math.abs(newX)) / speed_Hero));
-//                transition.setByX(st.get(index2).getHeight());
-//                double pivotX1 = st.get(index2).getX() + st.get(index2).getWidth() / 2;
-//                double pivotY1 = st.get(index2).getY() + st.get(index2).getHeight();
-//                Rotate rotation1 = new Rotate(0, pivotX1, pivotY1);
-//                st.get(index2).getTransforms().add(rotation1);
-//                Timeline timeline1 = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(rotation1.angleProperty(), 0)), new KeyFrame(Duration.millis(500), new KeyValue(rotation1.angleProperty(), 90)));
-//                double newX1 = platforms.get(index).getHeight() + 100;
-//                TranslateTransition transition1 = new TranslateTransition();
-//                transition1.setNode(hero);
-//                transition1.setDuration(Duration.millis((Math.abs(newX1)) / speed_Hero));
-//                transition1.setByY(newX1);
-////                try {
-////                    Thread.sleep(1000);
-////                } catch (InterruptedException e) {
-////                    throw new RuntimeException(e);
-////                }
-//                SequentialTransition sequentialTransition = new SequentialTransition(new ParallelTransition(timeline1, transition1));
-//                sequentialTransition.play();
-//                Stage stage = (Stage) st.get(index2).getScene().getWindow();
-//                sequentialTransition.setOnFinished(event -> {
-
-
-
-
-
-
-
-
-
-//                    md.setMediaPlayer(null);
-//                    stage.close();
-//                    Parent root = null;
-//                    try {
-//                        root = new FXMLLoader(getClass().getResource("EndScreen.fxml")).load();
-//                    } catch (IOException e) {
-//                        throw new RuntimeException(e);
-//                    }
-//                    Scene scene = new Scene(root);
-//                    stage.setScene(scene);
-
-
-
-
-
-
-//                });
                 st.get(index2).setOpacity(0);
-                if (index2 >0){
-                    st.get(index2-1).setOpacity(0);
+                if (index2 > 0) {
+                    st.get(index2 - 1).setOpacity(0);
 
                 }
-                platforms.get(index+1).setOpacity(0);
+                platforms.get(index + 1).setOpacity(0);
 
 
                 platforms.get(index).setOpacity(0);
                 platforms.get(index).setLayoutX(2);
-                platforms.get(index-1).setOpacity(0);
+                platforms.get(index - 1).setOpacity(0);
                 hero.setOpacity(0);
                 pause.setOpacity(0);
                 cherries.setOpacity(0);
-                if (x!=null){
+                if (x != null) {
                     x.setOpacity(0);
 
                 }
@@ -223,7 +158,6 @@ public class GameWindowController implements Initializable {
 
                 home.setLayoutY(260);
                 home.setLayoutX(261);
-
 
 
                 r1.setOpacity(1);
@@ -241,9 +175,8 @@ public class GameWindowController implements Initializable {
                 f2.setOpacity(1);
 
 
-
-                collisonWithPlatform.stop();
                 temporarySave();
+                collisonWithPlatform.stop();
             }
         }
     };
@@ -252,32 +185,11 @@ public class GameWindowController implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-
-//        home.setLayoutX(630);
-//        reload.setLayoutX(630);
-//        home.setLayoutY(12);
-//        reload.setLayoutY(12);
-
-//        String path = "C:/checkAP/vid.mp4";
-//        Media m = new Media(new File(path).toURI().toString());
-//
-//        MediaPlayer mp = new MediaPlayer(m);
-//        mp.setAutoPlay(true);
-//        md.setMediaPlayer(mp);
         makePlatform();
-//        while (md.getMediaPlayer() == null){
-//            String path = "C:/checkAP/vid2.mp4";
-//            Media m = new Media(new File(path).toURI().toString());
-//
-//            MediaPlayer mp = new MediaPlayer(m);
-//            mp.setAutoPlay(true);
-//            md.setMediaPlayer(mp);
-//
-//        }
         makeStick();
         pane.getChildren().add(platforms.get(index));
         Rectangle rectangle = platforms.get(index);
-        double w = rectangle.getX() + rectangle.getWidth() + new Random().nextDouble()*(150-50)+50 + 10;
+        double w = rectangle.getX() + rectangle.getWidth() + new Random().nextDouble() * (150 - 50) + 50 + 10;
         platforms.get(index + 1).setLayoutX(w);
         pane.getChildren().add(platforms.get(index + 1));
         check = 0;
@@ -289,21 +201,17 @@ public class GameWindowController implements Initializable {
     }
 
     public void placeCherry() {
-        if (check2 == 0){
+        if (check2 == 0) {
             if (checkCherry) {
                 pane.getChildren().removeIf(child -> "Cherry".equals(child.getId()));
             }
             x = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("Cherry.png"))));
             x.setId("Cherry");
-            x.setX(new Random().nextDouble()*(platforms.get(index).getLayoutX() - x.getFitWidth() - 10 - platforms.get(index - 1).getWidth())+platforms.get(index - 1).getWidth());
+            x.setX(new Random().nextDouble() * (platforms.get(index).getLayoutX() - x.getFitWidth() - 10 - platforms.get(index - 1).getWidth()) + platforms.get(index - 1).getWidth());
             x.setLayoutY(hero.getLayoutY() + 50);
             pane.getChildren().add(x);
             System.out.println("Placed Cherry");
-
-
         }
-
-
     }
 
     public void inc() {
@@ -312,7 +220,7 @@ public class GameWindowController implements Initializable {
             time.setCycleCount(Timeline.INDEFINITE);
             time.play();
         } else {
-            if (check2 == 0){
+            if (check2 == 0) {
                 Rotate rotate = new Rotate(0, stick.getX() + 3, stick.getY() + 40);
                 rotate.setAngle(180.0);
                 hero.getTransforms().add(rotate);
@@ -322,7 +230,6 @@ public class GameWindowController implements Initializable {
                     hero.setScaleX(-1);
                 }
                 isInverted = !isInverted;
-
             }
 
         }
@@ -350,7 +257,7 @@ public class GameWindowController implements Initializable {
             transition.setNode(hero);
             if ((st.get(index2).getHeight() + st.get(index2).getLayoutX()) > (platforms.get(index).getLayoutX() + platforms.get(index).getWidth()) || (st.get(index2).getLayoutX() + st.get(index2).getHeight()) < platforms.get(index).getLayoutX()) {
                 double targetAngle1 = 90;
-                check2 =1;
+                check2 = 1;
                 transition.setDuration(Duration.millis((Math.abs(newX)) / speed_Hero));
                 transition.setByX(st.get(index2).getHeight());
                 double pivotX1 = st.get(index2).getX() + st.get(index2).getWidth() / 2;
@@ -368,19 +275,19 @@ public class GameWindowController implements Initializable {
                 Stage stage = (Stage) st.get(index2).getScene().getWindow();
                 sequentialTransition.setOnFinished(event -> {
                     st.get(index2).setOpacity(0);
-                    if (index2 >0){
-                        st.get(index2-1).setOpacity(0);
+                    if (index2 > 0) {
+                        st.get(index2 - 1).setOpacity(0);
 
                     }
 
 
                     platforms.get(index).setOpacity(0);
-                    platforms.get(index-1).setOpacity(0);
+                    platforms.get(index - 1).setOpacity(0);
                     platforms.get(index).setLayoutX(2);
                     hero.setOpacity(0);
                     pause.setOpacity(0);
                     cherries.setOpacity(0);
-                    if (x!=null){
+                    if (x != null) {
                         x.setOpacity(0);
 
                     }
@@ -395,7 +302,6 @@ public class GameWindowController implements Initializable {
 
                     home.setLayoutY(260);
                     home.setLayoutX(261);
-
 
 
                     r1.setOpacity(1);
@@ -413,33 +319,11 @@ public class GameWindowController implements Initializable {
                     f2.setOpacity(1);
 
 
-
-
-
-
-
-
-//                    md.setMediaPlayer(null);
-//                    stage.close();
-//                    Parent root = null;
-//                    try {
-//                        root = new FXMLLoader(getClass().getResource("EndScreen.fxml")).load();
-//                    } catch (IOException e) {
-//                        throw new RuntimeException(e);
-//                    }
-//                    Scene scene = new Scene(root);
-//                    stage.setScene(scene);
-
-
-
-
-
-
                 });
 
                 temporarySave();
             } else {
-                if (check2 == 0){
+                if (check2 == 0) {
                     transition.setByX(platforms.get(index).getLayoutX() - platforms.get(index - 1).getWidth() + platforms.get(index).getWidth());
                     double newX1 = platforms.get(index).getLayoutX();
                     transition.setDuration(Duration.millis((Math.abs(newX1)) / speed_Hero));
@@ -473,7 +357,7 @@ public class GameWindowController implements Initializable {
                         index++;
                         pane.getChildren().add(platforms.get(index));
                         Rectangle rectangle = platforms.get(index - 1);
-                        double w = rectangle.getX() - 20 + rectangle.getWidth() + new Random().nextDouble()*(150-50)+50 + 10 + 50;
+                        double w = rectangle.getX() - 20 + rectangle.getWidth() + new Random().nextDouble() * (150 - 50) + 50 + 10 + 50;
 
                         platforms.get(index).setLayoutX(w);
                         check = 0;
@@ -496,14 +380,14 @@ public class GameWindowController implements Initializable {
     }
 
     private void temporarySave() {
-        PrintWriter fw= null;
+        PrintWriter fw = null;
         try {
             fw = new PrintWriter(new FileWriter("data.txt"));
             fw.println(score.getText());
             fw.println(cherries.getText());
         } catch (IOException e) {
             System.out.println(e);
-        }finally {
+        } finally {
             assert fw != null;
             fw.close();
         }
@@ -547,13 +431,14 @@ public class GameWindowController implements Initializable {
                 number++;
                 r.setHeight(150 - pane.getHeight());
                 r.setY(YPlatform + hero.getFitHeight());
-                r.setWidth(new Random().nextDouble()*(100-40)+40);
+                r.setWidth(new Random().nextDouble() * (100 - 40) + 40);
                 platforms.add(r);
             }
         }
     }
-    public void reload1(){
-        Stage stage1 =(Stage) cherries.getScene().getWindow();
+
+    public void reload1() {
+        Stage stage1 = (Stage) cherries.getScene().getWindow();
         stage1.close();
 
         Parent root;
@@ -563,15 +448,15 @@ public class GameWindowController implements Initializable {
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setScene(scene);
-            Button b=(Button) root.lookup("#pause");
+            Button b = (Button) root.lookup("#pause");
             b.setOnMousePressed(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     Parent r;
                     try {
-                        r=new FXMLLoader(getClass().getResource("PauseWindow.fxml")).load();
-                        Stage s=new Stage();
-                        Scene scene1=new Scene(r);
+                        r = new FXMLLoader(getClass().getResource("PauseWindow.fxml")).load();
+                        Stage s = new Stage();
+                        Scene scene1 = new Scene(r);
                         s.setScene(scene1);
                         s.initModality(Modality.APPLICATION_MODAL);
                         s.show();
@@ -585,19 +470,43 @@ public class GameWindowController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
-
-    public void scene(ActionEvent event) throws IOException{
-        Stage stage1 =(Stage) cherries.getScene().getWindow();
+    public void scene(ActionEvent event) throws IOException {
+        Stage stage1 = (Stage) cherries.getScene().getWindow();
         stage1.close();
+    }
 
+    public void addToSave() throws FileNotFoundException {
+        Scanner sc = new Scanner(new FileReader("data.txt"));
+        String score = sc.nextLine();
+        String cherry = sc.nextLine();
+        sc.close();
+        Scanner sc1 = new Scanner(new FileReader("main.txt"));
+        String score1 = sc1.nextLine();
+        String cherry1 = sc1.nextLine();
+        score1 = Integer.parseInt(score1) + score;
+        cherry1 = Integer.parseInt(cherry1) + cherry;
+        sc1.close();
+        PrintWriter fw = new PrintWriter("main.txt");
+        fw.println(score);
+        fw.println(cherry);
+        fw.close();
+    }
 
-//        Parent root = new FXMLLoader(getClass().getResource("scene4.fxml")).load(); // Use scene2.fxml
-//        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        Scene scene = new Scene(root);
-//        stage.setScene(scene);
-//        stage.show();
+    public void revive() throws FileNotFoundException {
+        Scanner sc1 = new Scanner(new FileReader("main.txt"));
+        String score1 = sc1.nextLine();
+        String cherry1 = sc1.nextLine();
+        sc1.close();
+        Scanner sc = new Scanner(new FileReader("data.txt"));
+        String score = sc.nextLine();
+        String cherry = sc.nextLine();
+        sc.close();
+        int total = Integer.parseInt(cherry1) + Integer.parseInt(cherry);
+        if (total >= 2) {
+            total -= 2;
+            reload1();
+        }
     }
 }

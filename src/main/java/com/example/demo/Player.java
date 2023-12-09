@@ -9,7 +9,7 @@ public class Player implements Serializable {//implementing flyweight
     private int HighScore = 0;//getter setter
     private Game Game = null;//getter setter
     private int Cherries = 0;
-    private static Map<String, Player> Players_dir = new HashMap<>();
+    private static HashMap<String, Player> Players_dir = new HashMap<>();
     public String getName() {
         return Name;
     }
@@ -59,7 +59,7 @@ public class Player implements Serializable {//implementing flyweight
             Players_dir.put(Name, new Player(Name, Password));
         }
     }
-    public static Map<String, Player> getPlayers_d() {
+    public static HashMap<String, Player> getPlayers_d() {
         return Players_dir;
     }
     public Game loadGame() {

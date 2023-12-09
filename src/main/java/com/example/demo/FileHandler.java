@@ -44,6 +44,7 @@ public class FileHandler {
     }
 
     public void addPlayer(String Name, String passwd) throws PlayerAlreadyExistsException {
-        
+        Player.addPlayer(Name,passwd);
+        writePlayers(Player.getPlayers_d());
     }
 }
