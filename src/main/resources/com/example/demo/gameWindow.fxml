@@ -49,28 +49,28 @@
 
 
 
-        <Label fx:id="r1" layoutX="43.0" layoutY="33.0" opacity="0" prefHeight="110.0" prefWidth="638.0" text="         GAME OVER">
+        <Label fx:id="r1" layoutX="43.0" layoutY="33.0" opacity="0.0" prefHeight="110.0" prefWidth="638.0" text="         GAME OVER">
             <font>
                 <Font name="Berlin Sans FB" size="61.0" />
             </font>
         </Label>
-        <Rectangle fx:id="r2" arcHeight="5.0" arcWidth="5.0" height="121.0" layoutX="195.0" layoutY="123.0" opacity="0" stroke="BLACK" strokeType="INSIDE" width="297.0" />
-        <Label fx:id="r22" layoutX="309.0" layoutY="126.0" opacity="0" text="SCORE" textFill="WHITE">
+        <Rectangle fx:id="r2" arcHeight="5.0" arcWidth="5.0" height="121.0" layoutX="195.0" layoutY="123.0" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="297.0" />
+        <Label fx:id="r22" layoutX="220.0" layoutY="126.0" opacity="0.0" text="SCORE" textFill="WHITE">
             <font>
                 <Font size="23.0" />
             </font>
         </Label>
-        <Label fx:id="r3" layoutX="312.0" layoutY="143.0" opacity="0" prefHeight="53.0" prefWidth="70.0" text="0" textFill="WHITE">
+        <Label fx:id="r3" layoutX="240.0" layoutY="143.0" opacity="0.0" prefHeight="54.0" prefWidth="83.0" text="0" textFill="WHITE">
             <font>
                 <Font name="Arial Black" size="35.0" />
             </font>
         </Label>
-        <Label fx:id="r4" layoutX="296.0" layoutY="181.0" opacity="0" text="CHERRIES" textFill="WHITE">
+        <Label fx:id="r4" layoutX="296.0" layoutY="181.0" opacity="0.0" text="CHERRIES" textFill="WHITE">
             <font>
                 <Font size="22.0" />
             </font>
         </Label>
-        <Label fx:id="r5" layoutX="321.0" layoutY="197.0" opacity="0" prefHeight="53.0" prefWidth="76.0" text="0" textFill="WHITE">
+        <Label fx:id="r5" layoutX="321.0" layoutY="197.0" opacity="0.0" prefHeight="53.0" prefWidth="76.0" text="0" textFill="WHITE">
             <font>
                 <Font name="Arial Black" size="35.0" />
             </font>
@@ -87,11 +87,21 @@
                 <Image url="@home.png" />
             </image>
         </ImageView>
-      <ImageView fx:id="rr" fitHeight="67.0" fitWidth="57.0" layoutX="464.0" layoutY="265.0" opacity="0.66" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="rr" fitHeight="67.0" fitWidth="57.0" layoutX="464.0" layoutY="265.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@revive.png" />
          </image>
       </ImageView>
+      <Label fx:id="r51" layoutX="397.0" layoutY="143.0" opacity="0.0" prefHeight="54.0" prefWidth="96.0" text="0" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="35.0" />
+         </font>
+      </Label>
+      <Label fx:id="r221" layoutX="351.0" layoutY="126.0" opacity="0.0" text="BEST SCORE" textFill="WHITE">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
         <Button layoutX="1.0" mnemonicParsing="false" onMousePressed="#inc" onMouseReleased="#stop" opacity="0.0" prefHeight="376.0" prefWidth="700.0" text="Button" />
         <Button fx:id="home" layoutX="617.0" layoutY="6.0" mnemonicParsing="false" onAction="#scene" opacity="0.0" prefHeight="67.0" prefWidth="70.0" text="Button" />
         <Button fx:id="reload" layoutX="631.0" layoutY="12.0" mnemonicParsing="false" onAction="#reload1" opacity="0.0" prefHeight="67.0" prefWidth="70.0" text="Button" />
