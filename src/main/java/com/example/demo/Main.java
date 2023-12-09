@@ -41,7 +41,7 @@ public class Main extends Application {
             SourceDataLine sd = (SourceDataLine) AudioSystem.getLine(dataLineInfo);
             sd.open(af1);
             sd.start();
-            new Thread(() -> {
+            Thread t1=new Thread(() -> {
                 byte[] a = new byte[4096];
                 int c;
 
@@ -54,7 +54,8 @@ public class Main extends Application {
                 }
                 sd.drain();
                 sd.close();
-            }).start();
+            });
+            t1.start();
 
         } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
             e.printStackTrace();
