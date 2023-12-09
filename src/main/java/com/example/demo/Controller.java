@@ -71,6 +71,8 @@ public class Controller {
         }
     }
 
+
+
     public void switchToScene2(ActionEvent event) throws IOException {
         Parent root = new FXMLLoader(getClass().getResource("scene2.fxml")).load(); // Use scene2.fxml
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -86,6 +88,8 @@ public class Controller {
         stage.setScene(scene);
         stage.show();
     }
+
+
 
     public void switchToLoadMenu(ActionEvent event) throws IOException {
         Parent root = new FXMLLoader(getClass().getResource("LoadMenu.fxml")).load();

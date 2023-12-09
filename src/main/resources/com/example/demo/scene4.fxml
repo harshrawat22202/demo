@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="main" opacity="0.99" prefHeight="675.0" prefWidth="320.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.Controller">
+<AnchorPane fx:id="main" opacity="0.99" prefHeight="675.0" prefWidth="320.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.Controller">
     <ImageView fitHeight="675.0" fitWidth="412.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@main2.png" />
@@ -31,5 +29,5 @@
     <Button layoutX="110.0" layoutY="448.0" mnemonicParsing="false" onAction="#exit2" opacity="0.0" prefHeight="30.0" prefWidth="102.0" text="Button" />
     <Button layoutX="283.0" layoutY="19.0" mnemonicParsing="false" onAction="#displayLog" opacity="0.0" prefHeight="30.0" prefWidth="27.0" text="Button" />
     <Button fx:id="log" layoutX="169.0" layoutY="54.0" mnemonicParsing="false" onAction="#switch1" opacity="0.0" prefHeight="96.0" prefWidth="120.0" text="LOG OUT" />
-    <Button fx:id="play" layoutX="102.0" layoutY="298.0" mnemonicParsing="false" onAction="#switchToLoadMenu" opacity="0.0" prefHeight="115.0" prefWidth="120.0" style="-fx-background-radius: 100;" text="Play" />
+    <Button fx:id="play" layoutX="102.0" layoutY="298.0" mnemonicParsing="false" onAction="#playButton" opacity="0.0" prefHeight="115.0" prefWidth="120.0" style="-fx-background-radius: 100;" text="Play" />
 </AnchorPane>
