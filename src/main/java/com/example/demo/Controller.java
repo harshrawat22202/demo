@@ -191,23 +191,6 @@ public class Controller {
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setScene(scene);
-            Button b=(Button) root.lookup("#pause");
-            b.setOnMousePressed(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    Parent r;
-                    try {
-                        r=new FXMLLoader(getClass().getResource("PauseWindow.fxml")).load();
-                        Stage s=new Stage();
-                        Scene scene1=new Scene(r);
-                        s.setScene(scene1);
-                        s.initModality(Modality.APPLICATION_MODAL);
-                        s.show();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            });
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
         } catch (IOException e) {

@@ -67,10 +67,6 @@ public class GameWindowController implements Initializable {
     private Rectangle r7;
     @FXML
     private ImageView ggg;
-
-    @FXML
-    private Button pause;
-
     @FXML
     private Label r1;
 
@@ -146,7 +142,6 @@ public class GameWindowController implements Initializable {
                 platforms.get(index).setLayoutX(2);
                 platforms.get(index - 1).setOpacity(0);
                 hero.setOpacity(0);
-                pause.setOpacity(0);
                 cherries.setOpacity(0);
                 if (x != null) {
                     x.setOpacity(0);
@@ -206,7 +201,7 @@ public class GameWindowController implements Initializable {
             cherries.setText(a2);
         }
         try {
-            Files.write(Path.of("reload.txt"),new byte[0], StandardOpenOption.TRUNCATE_EXISTING);
+            Files.write(Path.of("reload.txt"), new byte[0], StandardOpenOption.TRUNCATE_EXISTING);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -310,7 +305,6 @@ public class GameWindowController implements Initializable {
                     platforms.get(index - 1).setOpacity(0);
                     platforms.get(index).setLayoutX(2);
                     hero.setOpacity(0);
-                    pause.setOpacity(0);
                     cherries.setOpacity(0);
                     if (x != null) {
                         x.setOpacity(0);
@@ -397,7 +391,6 @@ public class GameWindowController implements Initializable {
                     });
 
                 }
-
             }
         }
     }
@@ -470,23 +463,6 @@ public class GameWindowController implements Initializable {
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setScene(scene);
-            Button b = (Button) root.lookup("#pause");
-            b.setOnMousePressed(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    Parent r;
-                    try {
-                        r = new FXMLLoader(getClass().getResource("PauseWindow.fxml")).load();
-                        Stage s = new Stage();
-                        Scene scene1 = new Scene(r);
-                        s.setScene(scene1);
-                        s.initModality(Modality.APPLICATION_MODAL);
-                        s.show();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            });
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
         } catch (IOException e) {
@@ -525,12 +501,29 @@ public class GameWindowController implements Initializable {
         sc.close();
         PrintWriter pw = new PrintWriter(new FileOutputStream("reload.txt"));
         if (Integer.parseInt(cherries.getText()) >= 2) {
-            cherries.setText(Integer.toString(Integer.parseInt(cherries.getText())-2));
+            cherries.setText(Integer.toString(Integer.parseInt(cherries.getText()) - 2));
             String cherry2 = cherries.getText();
             pw.println(score2);
             pw.println(cherry2);
             pw.close();
             reload1();
         }
+    }
+
+    public void hiScore() throws IOException {
+        Scanner sc = new Scanner(new FileReader("HiScore.txt"));
+        String score1 = sc.nextLine();
+        sc.close();
+        if (Integer.parseInt(score1) < Integer.parseInt(score.getText())) {
+            PrintWriter pw = new PrintWriter(new FileWriter("HiScore.txt"));
+            pw.println(score.getText());
+        }
+    }
+
+    public void save() throws IOException {
+        PrintWriter pw = new PrintWriter(new FileWriter("savefile.txt"));
+        pw.println(score.getText());
+        pw.write(cherries.getText());
+        pw.close();
     }
 }
