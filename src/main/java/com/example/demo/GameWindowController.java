@@ -569,7 +569,6 @@ public class GameWindowController implements Initializable {
             reload1();
         }
     }
-
     public void save() throws IOException {
         PrintWriter pw = new PrintWriter(new FileWriter("reload.txt"));
         pw.println(score.getText());
@@ -577,5 +576,8 @@ public class GameWindowController implements Initializable {
         pw.close();
         Stage s = (Stage) cherries.getScene().getWindow();
         s.close();
+    }
+    public Rectangle getStick(){
+        return stick;
     }
 }

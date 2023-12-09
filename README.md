@@ -35,3 +35,6 @@ here we save the score of the player and number of cherries earned in first 2 li
 HiScore.txt save high score of a player . Initially contents of reload.txt is 100 
 entry in HiScore.txt is 0
 data.txt has initial entry of 0 in first line and 0 in second line .
+
+## JUnit Testing 
+We have used a class Tester.java for testing using JUnit.
