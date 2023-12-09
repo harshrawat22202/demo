@@ -133,6 +133,8 @@ public class Controller {
             }
             removeName();
             removePass();
+
+
             Parent root = new FXMLLoader(getClass().getResource("scene4.fxml")).load(); // Use scene2.fxml
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);

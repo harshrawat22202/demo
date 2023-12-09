@@ -47,7 +47,7 @@
             </font>
         </Label>
         <Rectangle fx:id="r6" arcHeight="5.0" arcWidth="5.0" height="67.0" layoutX="354.0" layoutY="260.0" opacity="0" stroke="BLACK" strokeType="INSIDE" width="76.0" />
-        <ImageView fitHeight="54.0" fitWidth="52.0" layoutX="366.0" layoutY="266.0" opacity="0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="rr" fitHeight="54.0" fitWidth="52.0" layoutX="366.0" layoutY="266.0" opacity="0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@refresh.png" />
             </image>

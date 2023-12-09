@@ -44,6 +44,9 @@ public class GameWindowController implements Initializable {
     private int check2 = 0;
     @FXML
     private AnchorPane pane;
+
+    @FXML
+    private ImageView rr;
     @FXML
     private Rectangle stick;
     @FXML
@@ -173,6 +176,7 @@ public class GameWindowController implements Initializable {
                 ffff.setOpacity(1);
                 r7.setOpacity(0.3);
                 f2.setOpacity(1);
+                rr.setOpacity(1);
 
 
                 temporarySave();
@@ -317,6 +321,7 @@ public class GameWindowController implements Initializable {
                     ffff.setOpacity(1);
                     r7.setOpacity(0.3);
                     f2.setOpacity(1);
+                    rr.setOpacity(1);
 
 
                 });
