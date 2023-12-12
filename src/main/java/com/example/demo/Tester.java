@@ -20,4 +20,5 @@ public class Tester {
     public void stick(){
         assertNull(new GameWindowController().getHero());
     }
+
 }
