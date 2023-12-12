@@ -10,4 +10,14 @@ public class Tester {
             Main.main("abc");
         });
     }
+
+    @Test
+    public void listTester(){
+        assertTrue(new GameWindowController().getPlatforms().isEmpty());
+    }
+
+    @Test
+    public void stick(){
+        assertNull(new GameWindowController().getHero());
+    }
 }

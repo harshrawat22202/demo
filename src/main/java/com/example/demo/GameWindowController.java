@@ -108,6 +108,13 @@ public class GameWindowController implements Initializable {
     private boolean checkCherry = false;
     private boolean revive = false;
 
+    public ArrayList<Rectangle> getPlatforms(){
+        return this.platforms;
+    }
+
+    public ImageView getHero(){
+        return this.hero;
+    }
     private AnimationTimer collision = new AnimationTimer() {
         @Override
         public void handle(long l) {
